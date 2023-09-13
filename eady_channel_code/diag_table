@@ -1,0 +1,692 @@
+"MOM Experiment"
+1 1 1 0 0 0
+#"file_name",  output_freq,  "output_freq_units",  file_format,  "time_axis_units",  "time_axis_name"[,  new_file_freq,  "new_file_freq_units"[,  "start_time"[,  file_duration,  "file_duration_units"]]]
+# FILE NAME                      # FREQ # PER  #FMT # UNITS #AXISNAME #file freq #file freq units
+#===========================================================================
+"output_constant",                     -1,"days",1,"days","Time"
+"output_prognostic_%4yr_%3dy",          1,"days",1,"hours","Time",1,"days"
+"output_prognostic_zlev_%4yr_%3dy",     1,"days",1,"days","Time",1,"days"
+"output_surface_fluxes_%4yr_%3dy",      1,"days",1,"days","Time",1,"days"
+"output_prognostic_tavg_%4yr_%3dy",     1,"days",1,"days","Time",1,"days"
+"output_marbl_%4yr_%3dy",               1,"days",1,"days","Time",1,"days"
+"output_marbl2_%4yr_%3dy",              1,"days",1,"days","Time",1,"days"
+
+#===========================================================================
+#This is the field section of the diag_table.
+#===========================================================================
+#  FORMAT FOR FIELD ENTRIES (not all input values are used)
+#  ------------------------
+#
+#"module_name", "field_name", "output_name", "file_name" "time_sampling", time_avg, "other_opts", packing
+#
+#time_avg = .true. or .false.
+#
+#packing  = 1  double precision
+#         = 2  float
+#         = 4  packed 16-bit integers
+#         = 8  packed 1-byte (not tested?)
+#===========================================================================
+
+# Time invariant fields:
+#=======================
+#"module_name","field_name" , "output_name" ,"file_name",       "all",time_avg,"other_opts",packing
+#===============================================================================================
+"ocean_model", "geolon",      "geolon",      "output_constant", "all", ".false.", "none", 2
+"ocean_model", "geolat",      "geolat",      "output_constant", "all", ".false.", "none", 2
+"ocean_model", "geolon_u",    "geolon_u",    "output_constant", "all", ".false.", "none", 2
+"ocean_model", "geolat_u",    "geolat_u",    "output_constant", "all", ".false.", "none", 2
+"ocean_model", "geolon_v",    "geolon_v",    "output_constant", "all", ".false.", "none", 2
+"ocean_model", "geolat_v",    "geolat_v",    "output_constant", "all", ".false.", "none", 2
+"ocean_model", "deptho",      "deptho",      "output_constant", "all", ".false.", "none", 2
+"ocean_model", "wet",         "wet",         "output_constant", "all", ".false.", "none", 2
+"ocean_model", "wet_u",       "wet_u",       "output_constant", "all", ".false.", "none", 2
+"ocean_model", "wet_v",       "wet_v",       "output_constant", "all", ".false.", "none", 2
+"ocean_model", "Coriolis",    "Coriolis",    "output_constant", "all", ".false.", "none", 2
+"ocean_model", "area_t",      "area_t",      "output_constant", "all", ".false.", "none", 2
+"ocean_model", "area_u",      "area_u",      "output_constant", "all", ".false.", "none", 2
+"ocean_model", "area_v",      "area_v",      "output_constant", "all", ".false.", "none", 2
+
+
+# Prognostic Ocean fields (3 varieties):
+#=========================
+# SNAPSHOT
+"ocean_model", "geolon",      "geolon",      "output_prognostic_%4yr_%3dy", "all", ".false.", "none", 2
+"ocean_model", "geolat",      "geolat",      "output_prognostic_%4yr_%3dy", "all", ".false.", "none", 2
+"ocean_model","u","u","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","v","v","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","h","h","output_prognostic_%4yr_%3dy","all",.false.,"none",1
+"ocean_model","e","e","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","temp","temp","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","salt","salt","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+
+# TIME AVERAGE
+"ocean_model","u","u","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","v","v","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+# no point in time-average h
+"ocean_model","e","e","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","temp","temp","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","salt","salt","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+
+# SNAPSHOT, REMAPPED ONTO Z-LEVEL COORDS:
+"ocean_model_z","u","u","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","v","v","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","temp","temp","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","salt","salt","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+
+# Auxilary (MARBL) Tracers:
+#==================
+
+# SNAPSHOT
+#"ocean_model","vintage","vintage","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+#"ocean_model","age","age","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","PO4","PO4","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","NO3","NO3","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","SiO3","SiO3","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","NH4","NH4","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","Fe","Fe","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","Lig","Lig","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","O2","O2","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DIC","DIC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DIC_ALT_CO2","DIC_ALT_CO2","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","ALK","ALK","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","ALK_ALT_CO2","ALK_ALT_CO2","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DOC","DOC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DON","DON","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DOP","DOP","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DOPr","DOPr","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DONr","DONr","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","DOCr","DOCr","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","microzooC","microzooC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","mesozooC","mesozooC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","spChl","spChl","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","spC","spC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","spP","spP","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","spFe","spFe","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","coccoChl","coccoChl","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","coccoC","coccoC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","coccoP","coccoP","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","coccoFe","coccoFe","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","coccoCaCO3","coccoCaCO3","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diatChl","diatChl","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diatC","diatC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diatP","diatP","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diatFe","diatFe","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diatSi","diatSi","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diazChl","diazChl","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diazC","diazC","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diazP","diazP","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+"ocean_model","diazFe","diazFe","output_prognostic_%4yr_%3dy","all",.false.,"none",2
+
+# TIME-AVERAGE
+"ocean_model_z","PO4","PO4","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model_z","NO3","NO3","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","SiO3","SiO3","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","NH4","NH4","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","Fe","Fe","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","Lig","Lig","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","O2","O2","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DIC","DIC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DIC_ALT_CO2","DIC_ALT_CO2","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","ALK","ALK","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","ALK_ALT_CO2","ALK_ALT_CO2","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DOC","DOC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DON","DON","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DOP","DOP","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DOPr","DOPr","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DONr","DONr","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","DOCr","DOCr","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","microzooC","microzooC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","mesozooC","mesozooC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","spChl","spChl","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","spC","spC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","spP","spP","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","spFe","spFe","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","coccoChl","coccoChl","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","coccoC","coccoC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","coccoP","coccoP","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","coccoFe","coccoFe","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","coccoCaCO3","coccoCaCO3","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diatChl","diatChl","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diatC","diatC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diatP","diatP","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diatFe","diatFe","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diatSi","diatSi","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diazChl","diazChl","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diazC","diazC","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diazP","diazP","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+"ocean_model","diazFe","diazFe","output_prognostic_tavg_%4yr_%3dy","all",.true.,"none",2
+
+# SNAPSHOT, REMAPPED ONTO Z-LEVEL COORDS:
+"ocean_model_z","PO4","PO4","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","NO3","NO3","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","SiO3","SiO3","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","NH4","NH4","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","Fe","Fe","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","Lig","Lig","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","O2","O2","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DIC","DIC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DIC_ALT_CO2","DIC_ALT_CO2","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","ALK","ALK","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","ALK_ALT_CO2","ALK_ALT_CO2","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DOC","DOC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DON","DON","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DOP","DOP","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DOPr","DOPr","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DONr","DONr","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","DOCr","DOCr","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","microzooC","microzooC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","mesozooC","mesozooC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","spChl","spChl","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","spC","spC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","spP","spP","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","spFe","spFe","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","coccoChl","coccoChl","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","coccoC","coccoC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","coccoP","coccoP","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","coccoFe","coccoFe","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","coccoCaCO3","coccoCaCO3","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diatChl","diatChl","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diatC","diatC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diatP","diatP","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diatFe","diatFe","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diatSi","diatSi","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diazChl","diazChl","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diazC","diazC","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diazP","diazP","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+"ocean_model_z","diazFe","diazFe","output_prognostic_zlev_%4yr_%3dy","all",.false.,"none",2
+
+
+# Continuity Equation Terms:
+#===========================
+
+# Continuity Equation Terms In Pure Potential Density Coordiantes:
+#=================================================================
+
+#
+# Tracer Fluxes:
+#==================
+
+
+# Momentum Balance Terms:
+#=======================
+
+# Barotropic Momentum Balance Terms:
+# (only available with split time stepping.)
+#===========================================
+#
+# Viscosities and diffusivities:
+#===============================
+#
+# Kinetic Energy Balance Terms:
+#=============================
+#
+# Mixed Layer TKE Budget Terms:
+#===========================
+#
+# Surface Forcing:
+#=================
+
+# MARBL diagnostics:
+#===================
+"ocean_model", "rsdoabsorb", "rsdoabsorb", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "ECOSYS_IFRAC", "ECOSYS_IFRAC", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "ECOSYS_XKW", "ECOSYS_XKW", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "ECOSYS_ATM_PRESS", "ECOSYS_ATM_PRESS", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "PV_O2", "PV_O2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SCHMIDT_O2", "SCHMIDT_O2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "O2SAT", "O2SAT", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CO2STAR", "CO2STAR", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DCO2STAR", "DCO2STAR", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "pCO2SURF", "pCO2SURF", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DpCO2", "DpCO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "PV_CO2", "PV_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SCHMIDT_CO2", "SCHMIDT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "FG_CO2", "FG_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PH", "PH", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "ATM_CO2", "ATM_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CO2STAR_ALT_CO2", "CO2STAR_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DCO2STAR_ALT_CO2", "DCO2STAR_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "pCO2SURF_ALT_CO2", "pCO2SURF_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DpCO2_ALT_CO2", "DpCO2_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "FG_ALT_CO2", "FG_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PH_ALT_CO2", "PH_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "ATM_ALT_CO2", "ATM_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "IRON_FLUX", "IRON_FLUX", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DUST_FLUX", "DUST_FLUX", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "NOx_FLUX", "NOx_FLUX", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "NHy_FLUX", "NHy_FLUX", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "NHx_SURFACE_EMIS", "NHx_SURFACE_EMIS", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "zsatcalc", "zsatcalc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "zsatarag", "zsatarag", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "O2_ZMIN", "O2_ZMIN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "O2_ZMIN_DEPTH", "O2_ZMIN_DEPTH", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_TOT_zint", "photoC_TOT_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_TOT_zint_100m", "photoC_TOT_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_TOT_zint", "photoC_NO3_TOT_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_TOT_zint_100m", "photoC_NO3_TOT_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOC_prod_zint", "DOC_prod_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOC_prod_zint_100m", "DOC_prod_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOC_remin_zint", "DOC_remin_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOC_remin_zint_100m", "DOC_remin_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOCr_remin_zint", "DOCr_remin_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOCr_remin_zint_100m", "DOCr_remin_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Jint_Ctot", "Jint_Ctot", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Jint_Ntot", "Jint_Ntot", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Jint_Ptot", "Jint_Ptot", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Jint_Sitot", "Jint_Sitot", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Jint_Fetot", "Jint_Fetot", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "calcToFloor", "calcToFloor", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "calcToSed", "calcToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "calcToSed_ALT_CO2", "calcToSed_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "pocToFloor", "pocToFloor", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "pocToSed", "pocToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "ponToSed", "ponToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SedDenitrif", "SedDenitrif", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "OtherRemin", "OtherRemin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "popToSed", "popToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "bsiToSed", "bsiToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "dustToSed", "dustToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "pfeToSed", "pfeToSed", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_N_lim_surf", "sp_N_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_N_lim_Cweight_avg_100m", "sp_N_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_P_lim_surf", "sp_P_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_P_lim_Cweight_avg_100m", "sp_P_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_Fe_lim_surf", "sp_Fe_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_Fe_lim_Cweight_avg_100m", "sp_Fe_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_light_lim_surf", "sp_light_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_light_lim_Cweight_avg_100m", "sp_light_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_sp_zint", "photoC_sp_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_sp_zint_100m", "photoC_sp_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_sp_zint", "photoC_NO3_sp_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_zint", "graze_sp_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_zint_100m", "graze_sp_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_poc_zint", "graze_sp_poc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_poc_zint_100m", "graze_sp_poc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_doc_zint", "graze_sp_doc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_doc_zint_100m", "graze_sp_doc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_zoo_zint", "graze_sp_zoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_zoo_zint_100m", "graze_sp_zoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_zint", "sp_loss_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_zint_100m", "sp_loss_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_poc_zint", "sp_loss_poc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_poc_zint_100m", "sp_loss_poc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_doc_zint", "sp_loss_doc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_doc_zint_100m", "sp_loss_doc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_agg_zint", "sp_agg_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_agg_zint_100m", "sp_agg_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_N_lim_surf", "cocco_N_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_N_lim_Cweight_avg_100m", "cocco_N_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_P_lim_surf", "cocco_P_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_P_lim_Cweight_avg_100m", "cocco_P_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_Fe_lim_surf", "cocco_Fe_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_Fe_lim_Cweight_avg_100m", "cocco_Fe_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_light_lim_surf", "cocco_light_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_light_lim_Cweight_avg_100m", "cocco_light_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_cocco_zint", "photoC_cocco_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_cocco_zint_100m", "photoC_cocco_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_cocco_zint", "photoC_NO3_cocco_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_CaCO3_form_zint", "cocco_CaCO3_form_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_CaCO3_form_zint_100m", "cocco_CaCO3_form_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_zint", "graze_cocco_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_zint_100m", "graze_cocco_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_poc_zint", "graze_cocco_poc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_poc_zint_100m", "graze_cocco_poc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_doc_zint", "graze_cocco_doc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_doc_zint_100m", "graze_cocco_doc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_zoo_zint", "graze_cocco_zoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_zoo_zint_100m", "graze_cocco_zoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_zint", "cocco_loss_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_zint_100m", "cocco_loss_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_poc_zint", "cocco_loss_poc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_poc_zint_100m", "cocco_loss_poc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_doc_zint", "cocco_loss_doc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_doc_zint_100m", "cocco_loss_doc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_agg_zint", "cocco_agg_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_agg_zint_100m", "cocco_agg_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_N_lim_surf", "diat_N_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_N_lim_Cweight_avg_100m", "diat_N_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_P_lim_surf", "diat_P_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_P_lim_Cweight_avg_100m", "diat_P_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_Fe_lim_surf", "diat_Fe_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_Fe_lim_Cweight_avg_100m", "diat_Fe_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_SiO3_lim_surf", "diat_SiO3_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_SiO3_lim_Cweight_avg_100m", "diat_SiO3_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_light_lim_surf", "diat_light_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_light_lim_Cweight_avg_100m", "diat_light_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_diat_zint", "photoC_diat_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_diat_zint_100m", "photoC_diat_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_diat_zint", "photoC_NO3_diat_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_zint", "graze_diat_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_zint_100m", "graze_diat_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_poc_zint", "graze_diat_poc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_poc_zint_100m", "graze_diat_poc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_doc_zint", "graze_diat_doc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_doc_zint_100m", "graze_diat_doc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_zoo_zint", "graze_diat_zoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_zoo_zint_100m", "graze_diat_zoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_zint", "diat_loss_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_zint_100m", "diat_loss_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_poc_zint", "diat_loss_poc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_poc_zint_100m", "diat_loss_poc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_doc_zint", "diat_loss_doc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_doc_zint_100m", "diat_loss_doc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_agg_zint", "diat_agg_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_agg_zint_100m", "diat_agg_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_N_lim_surf", "diaz_N_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_N_lim_Cweight_avg_100m", "diaz_N_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_P_lim_surf", "diaz_P_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_P_lim_Cweight_avg_100m", "diaz_P_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_Fe_lim_surf", "diaz_Fe_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_Fe_lim_Cweight_avg_100m", "diaz_Fe_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_light_lim_surf", "diaz_light_lim_surf", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_light_lim_Cweight_avg_100m", "diaz_light_lim_Cweight_avg_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_diaz_zint", "photoC_diaz_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_diaz_zint_100m", "photoC_diaz_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_diaz_zint", "photoC_NO3_diaz_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_zint", "graze_diaz_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_zint_100m", "graze_diaz_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_poc_zint", "graze_diaz_poc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_poc_zint_100m", "graze_diaz_poc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_doc_zint", "graze_diaz_doc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_doc_zint_100m", "graze_diaz_doc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_zoo_zint", "graze_diaz_zoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_zoo_zint_100m", "graze_diaz_zoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_zint", "diaz_loss_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_zint_100m", "diaz_loss_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_poc_zint", "diaz_loss_poc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_poc_zint_100m", "diaz_loss_poc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_doc_zint", "diaz_loss_doc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_doc_zint_100m", "diaz_loss_doc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_agg_zint", "diaz_agg_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_agg_zint_100m", "diaz_agg_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_form_zint", "CaCO3_form_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_form_zint_100m", "CaCO3_form_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_zint", "microzoo_loss_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_zint", "mesozoo_loss_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_zint_100m", "microzoo_loss_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_zint_100m", "mesozoo_loss_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_basal_zint", "microzoo_loss_basal_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_basal_zint", "mesozoo_loss_basal_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_basal_zint_100m", "microzoo_loss_basal_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_basal_zint_100m", "mesozoo_loss_basal_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_poc_zint", "microzoo_loss_poc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_poc_zint", "mesozoo_loss_poc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_poc_zint_100m", "microzoo_loss_poc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_poc_zint_100m", "mesozoo_loss_poc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_doc_zint", "microzoo_loss_doc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_doc_zint", "mesozoo_loss_doc_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_doc_zint_100m", "microzoo_loss_doc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_doc_zint_100m", "mesozoo_loss_doc_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_zint", "graze_microzoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_zint", "graze_mesozoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_zint_100m", "graze_microzoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_zint_100m", "graze_mesozoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_poc_zint", "graze_microzoo_poc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_poc_zint", "graze_mesozoo_poc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_poc_zint_100m", "graze_microzoo_poc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_poc_zint_100m", "graze_mesozoo_poc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_doc_zint", "graze_microzoo_doc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_doc_zint", "graze_mesozoo_doc_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_doc_zint_100m", "graze_microzoo_doc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_doc_zint_100m", "graze_mesozoo_doc_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_zoo_zint", "graze_microzoo_zoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_zoo_zint", "graze_mesozoo_zoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_zoo_zint_100m", "graze_microzoo_zoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_zoo_zint_100m", "graze_mesozoo_zoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "x_graze_microzoo_zint", "x_graze_microzoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "x_graze_mesozoo_zint", "x_graze_mesozoo_zint", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "x_graze_microzoo_zint_100m", "x_graze_microzoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "x_graze_mesozoo_zint_100m", "x_graze_mesozoo_zint_100m", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "insitu_temp", "insitu_temp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CO3", "CO3", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "HCO3", "HCO3", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "H2CO3", "H2CO3", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "pH_3D", "pH_3D", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CO3_ALT_CO2", "CO3_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "HCO3_ALT_CO2", "HCO3_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "H2CO3_ALT_CO2", "H2CO3_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "pH_3D_ALT_CO2", "pH_3D_ALT_CO2", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "co3_sat_calc", "co3_sat_calc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "co3_sat_arag", "co3_sat_arag", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "NITRIF", "NITRIF", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DENITRIF", "DENITRIF", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "O2_PRODUCTION", "O2_PRODUCTION", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "O2_CONSUMPTION", "O2_CONSUMPTION", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "AOU", "AOU", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PAR_avg", "PAR_avg", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_auto_TOT", "graze_auto_TOT", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_TOT", "photoC_TOT", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_TOT", "photoC_NO3_TOT", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOC_prod", "DOC_prod", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOC_remin", "DOC_remin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOCr_remin", "DOCr_remin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DON_prod", "DON_prod", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DON_remin", "DON_remin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DONr_remin", "DONr_remin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_prod", "DOP_prod", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_remin", "DOP_remin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOPr_remin", "DOPr_remin", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_loss_P_bal", "DOP_loss_P_bal", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Fe_scavenge", "Fe_scavenge", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Fe_scavenge_rate", "Fe_scavenge_rate", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Lig_prod", "Lig_prod", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Lig_loss", "Lig_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Lig_scavenge", "Lig_scavenge", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Fefree", "Fefree", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Lig_photochem", "Lig_photochem", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Lig_deg", "Lig_deg", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "FESEDFLUX", "FESEDFLUX", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_FLUX_100m", "POC_FLUX_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POP_FLUX_100m", "POP_FLUX_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_FLUX_100m", "CaCO3_FLUX_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SiO2_FLUX_100m", "SiO2_FLUX_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "P_iron_FLUX_100m", "P_iron_FLUX_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_PROD_zint", "POC_PROD_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_PROD_zint_100m", "POC_PROD_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_REMIN_DOCr_zint", "POC_REMIN_DOCr_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_REMIN_DOCr_zint_100m", "POC_REMIN_DOCr_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_REMIN_DIC_zint", "POC_REMIN_DIC_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_REMIN_DIC_zint_100m", "POC_REMIN_DIC_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_PROD_zint", "CaCO3_PROD_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_PROD_zint_100m", "CaCO3_PROD_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_REMIN_zint", "CaCO3_REMIN_zint", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_REMIN_zint_100m", "CaCO3_REMIN_zint_100m", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_FLUX_IN", "POC_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_sFLUX_IN", "POC_sFLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_hFLUX_IN", "POC_hFLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_PROD", "POC_PROD", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_REMIN_DOCr", "POC_REMIN_DOCr", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POC_REMIN_DIC", "POC_REMIN_DIC", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POP_FLUX_IN", "POP_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POP_PROD", "POP_PROD", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POP_REMIN_DOPr", "POP_REMIN_DOPr", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "POP_REMIN_PO4", "POP_REMIN_PO4", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PON_REMIN_DONr", "PON_REMIN_DONr", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PON_REMIN_NH4", "PON_REMIN_NH4", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_FLUX_IN", "CaCO3_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_PROD", "CaCO3_PROD", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_REMIN", "CaCO3_REMIN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_ALT_CO2_FLUX_IN", "CaCO3_ALT_CO2_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_ALT_CO2_PROD", "CaCO3_ALT_CO2_PROD", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_ALT_CO2_REMIN", "CaCO3_ALT_CO2_REMIN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SiO2_FLUX_IN", "SiO2_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SiO2_PROD", "SiO2_PROD", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "SiO2_REMIN", "SiO2_REMIN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "dust_FLUX_IN", "dust_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "dust_REMIN", "dust_REMIN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "P_iron_FLUX_IN", "P_iron_FLUX_IN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "P_iron_PROD", "P_iron_PROD", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "P_iron_REMIN", "P_iron_REMIN", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_Qp", "sp_Qp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_sp", "photoC_sp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_sp", "photoC_NO3_sp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoFe_sp", "photoFe_sp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNO3_sp", "photoNO3_sp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNH4_sp", "photoNH4_sp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_sp_uptake", "DOP_sp_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PO4_sp_uptake", "PO4_sp_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp", "graze_sp", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_poc", "graze_sp_poc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_doc", "graze_sp_doc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_zootot", "graze_sp_zootot", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_microzoo", "graze_sp_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_sp_mesozoo", "graze_sp_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss", "sp_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_poc", "sp_loss_poc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_loss_doc", "sp_loss_doc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "sp_agg", "sp_agg", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_Qp", "cocco_Qp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_cocco", "photoC_cocco", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_cocco", "photoC_NO3_cocco", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoFe_cocco", "photoFe_cocco", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNO3_cocco", "photoNO3_cocco", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNH4_cocco", "photoNH4_cocco", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_cocco_uptake", "DOP_cocco_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PO4_cocco_uptake", "PO4_cocco_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco", "graze_cocco", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_poc", "graze_cocco_poc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_doc", "graze_cocco_doc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_zootot", "graze_cocco_zootot", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_microzoo", "graze_cocco_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_cocco_mesozoo", "graze_cocco_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss", "cocco_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_poc", "cocco_loss_poc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_loss_doc", "cocco_loss_doc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_agg", "cocco_agg", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "cocco_CaCO3_form", "cocco_CaCO3_form", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_Qp", "diat_Qp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_diat", "photoC_diat", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_diat", "photoC_NO3_diat", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoFe_diat", "photoFe_diat", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNO3_diat", "photoNO3_diat", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNH4_diat", "photoNH4_diat", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_diat_uptake", "DOP_diat_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PO4_diat_uptake", "PO4_diat_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat", "graze_diat", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_poc", "graze_diat_poc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_doc", "graze_diat_doc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_zootot", "graze_diat_zootot", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_microzoo", "graze_diat_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diat_mesozoo", "graze_diat_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss", "diat_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_poc", "diat_loss_poc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_loss_doc", "diat_loss_doc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_agg", "diat_agg", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diat_bSi_form", "diat_bSi_form", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_Qp", "diaz_Qp", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_diaz", "photoC_diaz", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoC_NO3_diaz", "photoC_NO3_diaz", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoFe_diaz", "photoFe_diaz", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNO3_diaz", "photoNO3_diaz", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "photoNH4_diaz", "photoNH4_diaz", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "DOP_diaz_uptake", "DOP_diaz_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "PO4_diaz_uptake", "PO4_diaz_uptake", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz", "graze_diaz", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_poc", "graze_diaz_poc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_doc", "graze_diaz_doc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_zootot", "graze_diaz_zootot", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_microzoo", "graze_diaz_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_diaz_mesozoo", "graze_diaz_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss", "diaz_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_poc", "diaz_loss_poc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_loss_doc", "diaz_loss_doc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_agg", "diaz_agg", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "diaz_Nfix", "diaz_Nfix", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "bSi_form", "bSi_form", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "CaCO3_form", "CaCO3_form", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "Nfix", "Nfix", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss", "microzoo_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss", "mesozoo_loss", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_basal", "microzoo_loss_basal", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_basal", "mesozoo_loss_basal", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_poc", "microzoo_loss_poc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_poc", "mesozoo_loss_poc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "microzoo_loss_doc", "microzoo_loss_doc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "mesozoo_loss_doc", "mesozoo_loss_doc", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo", "graze_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo", "graze_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_poc", "graze_microzoo_poc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_poc", "graze_mesozoo_poc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_doc", "graze_microzoo_doc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_doc", "graze_mesozoo_doc", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_zootot", "graze_microzoo_zootot", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_zootot", "graze_mesozoo_zootot", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_microzoo", "graze_microzoo_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_microzoo_mesozoo", "graze_microzoo_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_microzoo", "graze_mesozoo_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "graze_mesozoo_mesozoo", "graze_mesozoo_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "x_graze_microzoo", "x_graze_microzoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+"ocean_model", "x_graze_mesozoo", "x_graze_mesozoo", "output_marbl2_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "PO4_RESTORE_TEND", "PO4_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "NO3_RESTORE_TEND", "NO3_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "SiO3_RESTORE_TEND", "SiO3_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "NH4_RESTORE_TEND", "NH4_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Fe_RESTORE_TEND", "Fe_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "Lig_RESTORE_TEND", "Lig_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "O2_RESTORE_TEND", "O2_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DIC_RESTORE_TEND", "DIC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DIC_ALT_CO2_RESTORE_TEND", "DIC_ALT_CO2_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "ALK_RESTORE_TEND", "ALK_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "ALK_ALT_CO2_RESTORE_TEND", "ALK_ALT_CO2_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DOC_RESTORE_TEND", "DOC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DON_RESTORE_TEND", "DON_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DOP_RESTORE_TEND", "DOP_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DOPr_RESTORE_TEND", "DOPr_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DONr_RESTORE_TEND", "DONr_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "DOCr_RESTORE_TEND", "DOCr_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "microzooC_RESTORE_TEND", "microzooC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "mesozooC_RESTORE_TEND", "mesozooC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "spChl_RESTORE_TEND", "spChl_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "spC_RESTORE_TEND", "spC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "spP_RESTORE_TEND", "spP_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "spFe_RESTORE_TEND", "spFe_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "coccoChl_RESTORE_TEND", "coccoChl_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "coccoC_RESTORE_TEND", "coccoC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "coccoP_RESTORE_TEND", "coccoP_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "coccoFe_RESTORE_TEND", "coccoFe_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "coccoCaCO3_RESTORE_TEND", "coccoCaCO3_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diatChl_RESTORE_TEND", "diatChl_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diatC_RESTORE_TEND", "diatC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diatP_RESTORE_TEND", "diatP_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diatFe_RESTORE_TEND", "diatFe_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diatSi_RESTORE_TEND", "diatSi_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diazChl_RESTORE_TEND", "diazChl_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diazC_RESTORE_TEND", "diazC_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diazP_RESTORE_TEND", "diazP_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+#"ocean_model", "diazFe_RESTORE_TEND", "diazFe_RESTORE_TEND", "output_marbl_%4yr_%3dy", "all", .false., "none", 2
+
+
+#=============================================================================================
+#
+#====> This file can be used with diag_manager/v2.0a (or higher) <====
+#
+#
+#  FORMATS FOR FILE ENTRIES (not all input values are used)
+#  ------------------------
+#
+#"file_name", output_freq, "output_units", format, "time_units", "time_long_name", ...
+#   (opt) new_file_frequecy, (opt) "new_file_freq_units", "new_file_start_date"
+#
+#
+#output_freq:  > 0  output frequency in "output_units"
+#              = 0  output frequency every time step
+#              =-1  output frequency at end of run
+#
+#output_units = units used for output frequency
+#               (years, months, days, minutes, hours, seconds)
+#
+#time_units   = units used to label the time axis
+#               (days, minutes, hours, seconds)
+#
+#
+#  FORMAT FOR FIELD ENTRIES (not all input values are used)
+#  ------------------------
+#
+#"module_name", "field_name", "output_name", "file_name" "time_sampling", time_avg, "other_opts", packing
+#
+#time_avg = .true. or .false.
+#
+#packing  = 1  double precision
+#         = 2  float
+#         = 4  packed 16-bit integers
+#         = 8  packed 1-byte (not tested?)

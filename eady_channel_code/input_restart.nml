@@ -1,0 +1,45 @@
+
+&MOM_input_nml
+         output_directory = './',
+         input_filename = 'r'
+         restart_input_dir = 'RESTART/',
+         restart_output_dir = 'RESTART/',
+         parameter_filename = 'MOM_input',
+                              'MOM_override' /
+
+ &fms_io_nml
+            fms_netcdf_restart=.true.
+            threading_read='multi'
+            max_files_r = 200
+            max_files_w = 200
+/
+
+ &fms_nml
+            clock_grain='ROUTINE'
+            clock_flags='NONE'
+            domains_stack_size = 9600000 ! Note have multiplied this by 10 from default 960000 - DS
+            stack_size =0
+/
+
+ &ocean_domains_nml
+ /
+!! TO RUN WITH RESTART:
+! FIRST RUN USING input.nml , CHANGING
+! days TO A NUMBER OF DAYS AFTER WHICH TO RESTART
+! THEN HERE (input_restart.nml)
+! CHANGE date_init TO MATCH RESTART DATE
+! SWAP input.nml FOR input_restart.nml
+
+ &ocean_solo_nml
+            months  = 0
+            days    = 100
+            hours   = 0
+            minutes = 0
+            seconds = 0
+            date_init = 1,1,5,0,0,0
+            calendar = 'NOLEAP' /
+
+/
+ &diag_manager_nml
+   max_output_fields = 750, ! Have added this to allow MARBL output - DS
+ /
