@@ -16,4 +16,4 @@ The instructions are shown as Markdown cells in the notebook
 
 ---
 ## Acknowledgements: 
-Mike Levy, Scott Bachman, Elizabeth Yankovsky
+Mike Levy (MOM6 source code and compilation instructions), Scott Bachman (channel config), Elizabeth Yankovsky (MARBL initialisation code)
